@@ -1,0 +1,56 @@
+[
+    {
+      "_id": "0282e0e58a5c404fbd15261f11c2ab6a",
+      "category_id": "1",
+      "name": "Workshops and Webinars",
+      "image": "https://ibb.co/zQ7Km4y",
+      "image_url": "https://i.ibb.co/JF6Mzp6/62ea33c5c69f445885ff9e68-what-is-a-workshop.jpg",
+      "price": 200,
+      "details": "A workshop is to create a space in which a group of people can meet to discuss questions, brainstorm ideas, identify problems, make decisions and develop solutions. This space often doesn’t exist in the busy schedule of day-to-day work. On average, professionals spend 21,5 hours in meetings spread across their week. This leaves little time for deep work. Especially when you consider that not all meetings are back-to-back and therefore naturally split the day into 1-2 hour blocks of actual work. Workshops create a space for deep, meaningful work to happen and also help to tap into the wisdom of the group. This is especially interesting if you are standing in front of a complex, interdisciplinary challenge such as doing Strategic Planning."
+    },
+    {
+      "_id": "0282e0e58a5c404fbd12ab6ae58a5eds",
+      "category_id": "2",
+      "name": "Career Fairs",
+      "image": "https://ibb.co/GtyXLCr",
+      "image_url": "https://i.ibb.co/CMgqZVS/careersfair.jpg",
+      "price": 150,
+      "details": "We deliver a selection of careers fairs which are designed to provide you with access to a range of employers offering part-time work, internships, placements and graduate opportunities. These companies are keen to recruit Exeter students, making them a fantastic opportunity for you to access potential future employers. We are delighted to advise of our upcoming programme of careers fairs, outlined below. These events are open to Exeter students of all years and disciplines. Our graduates are also welcome to attend."
+    },
+    {
+      "_id": "c404fbd15261f11c2ab6a0282e0e58a5",
+      "category_id": "3",
+      "name": "Educational Conferences",
+      "image": "https://ibb.co/hWWbnwY",
+      "image_url": "https://i.ibb.co/KqqdQSK/academic-conference-shutterstock-481869205.jpg",
+      "price": 300,
+      "details": "Educational conferences serve as a platform for teachers, researchers, professionals, and students to gather and exchange ideas, knowledge, and research findings. The purpose of educational conferences is to enhance the development of education, research, and innovation. These conferences also allow attendees to network and collaborate with other professionals in their field. One of the benefits of educational conferences is that they provide a forum for attendees to present and discuss their research findings, ideas, and innovations with a broader audience. They also offer opportunities for attendees to learn about new trends, technologies, and strategies they can apply to their work. Another benefit is networking and establishing professional relationships with other attendees. "
+    },
+    {
+      "_id": "0282e0e15261f11c2ab6a58a5c404fbd",
+      "category_id": "4",
+      "name": "Training Programs",
+      "image": "https://ibb.co/sF5sG1Q",
+      "image_url": "https://i.ibb.co/SKQV8m0/change-management-checklist-26.png",
+      "price": 100,
+      "details": "A training program is a planned sequence and combination of activities designed to equip employees with knowledge and skills to become better professionals. Each training program is aimed at achieving specific business goals. Depending on the purpose, there may be different types of training programs. Successful training programs don’t manifest overnight. They’re the result of a careful planning and developmental process. Below are step-by-step instructions for creating an effective employee training program that aligns with business needs and is engaging for learners."
+    },
+    {
+      "_id": "e58a5c404fbd0282e015261f11c2ab6a",
+      "category_id": "5",
+      "name": "Programming Contest",
+      "image": "https://ibb.co/4dP7S5G",
+      "image_url": "https://i.ibb.co/q5kdgPf/p118.jpg",
+      "price": 120,
+      "details": "A programming competition generally involves the host presenting a set of logical or mathematical problems, also known as puzzles or challenges, to the contestants (who can vary in number from tens or even hundreds to several thousand). Contestants are required to write computer programs capable of solving these problems. Judging is based mostly upon number of problems solved and time spent on writing successful solutions, but may also include other factors (quality of output produced, execution time, memory usage, program size, etc.)."
+    },
+    {
+      "_id": "028261f11e58a5c404c2ab6ae0fbd152",
+      "category_id": "6",
+      "name": "Ethical Hacking",
+      "image": "https://ibb.co/DD92gW4",
+      "image_url": "https://i.ibb.co/6RHCJwY/Indian-School-of-Ethical-Hacking-organized-the-Biggest-Hacking-Competition-at-North-Bengal-march-202.jpg",
+      "price": 250,
+      "details": "Ethical hacking aims to identify security vulnerabilities in networks, software, or hardware. Ethical hackers — also called “white hats” or “red teams” — are cybersecurity experts who legally hack and test their client’s systems to identify and eliminate security problems. They always have the permission of the hacking target to hack into systems and expose vulnerabilities. In this phase, the hacker gathers data about the target. The hacker analyzes the data and selects a suitable hacking method for exposing vulnerabilities. In this phase, the attack takes place. The hacker accesses the target’s system. The hacker attempts to cover their tracks so law enforcement or security personnel won’t find out about the attack."
+    }
+  ]
