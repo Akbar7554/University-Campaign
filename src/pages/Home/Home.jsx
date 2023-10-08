@@ -14,6 +14,7 @@ const Home = () => {
   // console.log(data);
   return (
     <div>
+      
       {/* <Header></Header> */}
       <Navbar></Navbar>
       <Banner></Banner>
