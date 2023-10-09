@@ -12,7 +12,7 @@ import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWith
 import app from "../../Firebase/firebase.config";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
   const [signUpSuccess, setSignUpSuccess] = useState("");
   const navigate = useNavigate();
@@ -39,26 +39,29 @@ const SignUp = () => {
     
     e.preventDefault();
     console.log(e.currentTarget);
-    const form = new FormData(e.currentTarget);
-    const name = form.get("name");
-    const image = form.get("image");
-    const email = form.get("email");
-    const password = form.get("password");
-    // const name = e.target.name.value;
-    // const email = e.target.email.value;
-    // const image = e.target.image.value;
-    // const password = e.target.password.value;
+    // const form = new FormData(e.currentTarget);
+    // const name = form.get("name");
+    // const image = form.get("image");
+    // const email = form.get("email");
+    // const password = form.get("password");
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const image = e.target.image.value;
+    const password = e.target.password.value;
     console.log(name, image, email, password);
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(result => {
         console.log(result.user);
-        updateProfile(result.user, {
-          displayName: name,
-          photoURL: image,
-        })
+        if (result.user) {
+          updateUserProfile({
+            displayName: name,
+            photoURL: image
+          })
           .then(() => console.log("updated"))
         .catch()
+        }
+         
       })
     .catch()
 

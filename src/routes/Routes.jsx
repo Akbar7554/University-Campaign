@@ -6,6 +6,9 @@ import SignUp from "../pages/SignUp/SignUp";
 import EventDetails from "../pages/EventDetails/EventDetails";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import About from "../pages/shared/About/About";
+import Services from "../pages/shared/Services/Services";
+import Contact from "../pages/shared/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,7 @@ const router = createBrowserRouter([
             <EventDetails></EventDetails>
           </PrivateRoute>
         ),
+        loader: () => fetch("../educational.json"),
       },
       {
         path: "/signIn",
@@ -33,6 +37,30 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/about",
+        element: (
+          <PrivateRoute>
+            <About></About>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/services",
+        element: (
+          <PrivateRoute>
+            <Services></Services>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/contact",
+        element: (
+          <PrivateRoute>
+            <Contact></Contact>
+          </PrivateRoute>
+        ),
       },
     ],
   },
