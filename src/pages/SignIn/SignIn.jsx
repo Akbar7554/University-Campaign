@@ -5,27 +5,74 @@ import Navbar from "../shared/Navbar/Navbar";
 import loginBanner from "../../assets/undraw_access_account_re_8spm.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import app from "../../Firebase/firebase.config";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const SignIn = () => {
+  // google sign in
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
   const { signIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log("location in login page", location);
-    const handleSignIn = e => {
-        e.preventDefault();
-        console.log(e.currentTarget);
-      const form = new FormData(e.currentTarget);
-      const email = form.get("email");
-      const password = form.get("password");
-      console.log(email, password);
-      signIn(email, password)
-        .then(result => {
-          console.log(result.user);
 
-          navigate(location?.state ? location.state : "/")
-        })
-        .catch(error => { console.error(error); })
-    }
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("Account Created Successfully!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+        navigate(location?.state ? location.state : "/");
+    
+  };
+  console.log("location in login page", location);
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    console.log(e.currentTarget);
+    const form = new FormData(e.currentTarget);
+    const email = form.get("email");
+    const password = form.get("password");
+    console.log(email, password);
+    signIn(email, password)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Successfully SignIn", {
+          style: {
+            padding: "16px",
+            color: "white",
+            backgroundColor: "rgb(74 222 128)",
+          },
+          iconTheme: {
+            primary: "black",
+            secondary: "#FFFAEE",
+          },
+        });
+        navigate(location?.state ? location.state : "/");
+        navigate(location?.accessToken ? location.accessToken : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Your email or password do not match. Please try again", {
+          style: {
+            padding: "16px",
+            color: "white",
+            backgroundColor: "rgb(239 68 68)",
+            textAlign: "center",
+          },
+          iconTheme: {
+            primary: "black",
+            secondary: "#FFFAEE",
+          },
+        });
+      });
+  };
   return (
     <div>
       <Navbar></Navbar>
@@ -124,6 +171,19 @@ const SignIn = () => {
                     </Link>
                   </p>
                 </form>
+                <div className="space-y-3 md:pl-5 pb-5">
+                  <div className="ml-2 md:flex gap-5 items-center">
+                    <button
+                      onClick={handleGoogleSignIn}
+                      className="btn btn-outline btn-info w-32 border-2  border-sky-500"
+                    >
+                      <FcGoogle className="text-xl"></FcGoogle>Google
+                    </button>
+                    <button className="btn btn-outline w-32 border-2">
+                      <FaGithub className="text-xl"></FaGithub>Github
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

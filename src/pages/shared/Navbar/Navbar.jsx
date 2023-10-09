@@ -4,6 +4,7 @@ import campusLogo from "../../../assets/campuslogo.png";
 import userProfile from "../../../assets/userprofile.png";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
 // import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
 
@@ -15,7 +16,7 @@ const Navbar = () => {
     }
   }
 
-  const { user, userSignOut } = useContext(AuthContext);
+  const { user, userSignOut, createUser } = useContext(AuthContext);
   const handleSignOut = () => {
     userSignOut()
       .then(result => {
@@ -24,6 +25,8 @@ const Navbar = () => {
       })
       .catch(error => { console.error(error) });
   };
+  
+  
   return (
     <div className="bg-gradient-to-r from-[#ec6f66] to-[#ff5e62]">
       <nav className=" dark:bg-gray-900">
@@ -33,30 +36,36 @@ const Navbar = () => {
             {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
           </div>
           <div className="flex items-center md:order-2">
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src={userProfile} />
-                </div>
-              </label>
-              <ul
-                tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
-                <li>
-                  <a>Settings</a>
-                </li>
-                <li>
-                  <Link onClick={handleSignOut}>Logout</Link>
-                </li>
-              </ul>
-            </div>
+            {user?.email ? (
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user.photoURL} />
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a className="justify-between">
+                      {user.displayName}
+                      <span className="badge">New</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>{ user.email}</a>
+                  </li>
+                  <li>
+                    <Link to="/signIn" onClick={handleSignOut}>Logout</Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="w-10 h-10 rounded-full">
+                <img className="w-10 h-10 rounded-full" src={userProfile} />
+              </div>
+            )}
           </div>
           <div
             className="items-center  justify-between hidden w-full md:flex md:w-auto md:order-1"

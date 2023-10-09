@@ -7,6 +7,7 @@ import MainContent from "../shared/MainContent/MainContent";
 // import Header from "../shared/Header/Header";
 // import LeftSideContent from "../shared/LeftSideContent/LeftSideContent";
 import Navbar from "../shared/Navbar/Navbar";
+import { Toaster } from "react-hot-toast";
 // import RightSideContent from "../shared/RightSideContent/RightSideContent";
 
 const Home = () => {
@@ -14,7 +15,6 @@ const Home = () => {
   // console.log(data);
   return (
     <div>
-      
       {/* <Header></Header> */}
       <Navbar></Navbar>
       <Banner></Banner>
@@ -26,13 +26,14 @@ const Home = () => {
         <div className="p-5 grid gap-5 grid-cols-1  md:grid-cols-2">
           {data.map((myData) => (
             <MainContent key={myData._id} data={myData}></MainContent>
-          ))}
+            ))}
         </div>
         {/* <div className="border">
             <RightSideContent></RightSideContent>
           </div> */}
       </div>
       <Footer></Footer>
+          <Toaster />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 // import React from 'react';
 
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
 
 const EventDetails = () => {
@@ -9,7 +9,7 @@ const EventDetails = () => {
     return (
       <div>
         <Navbar></Navbar>
-        <div>{id}</div>
+        <NavLink>{id}</NavLink>
         <div>
         </div>
       </div>

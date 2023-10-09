@@ -2,51 +2,123 @@
 
 import Navbar from "../shared/Navbar/Navbar";
 import SignUpBanner from "../../assets/undraw_team_work_k-80-m.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithPopup, updateProfile } from "firebase/auth";
+import app from "../../Firebase/firebase.config";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
   const [signUpSuccess, setSignUpSuccess] = useState("");
+  const navigate = useNavigate();
+
+
+  // google sign in
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then(result => {
+        const user = result.user;
+        navigate(location?.state ? location.state : "/");
+        console.log(user);
+        toast.success("Account Created Successfully!");
+    })
+      .catch(error => {
+      console.error(error);
+    }) 
+  }
 
   const handleSignUp = (e) => {
+    
     e.preventDefault();
     console.log(e.currentTarget);
     const form = new FormData(e.currentTarget);
     const name = form.get("name");
+    const image = form.get("image");
     const email = form.get("email");
     const password = form.get("password");
-    console.log(name, email, password);
+    // const name = e.target.name.value;
+    // const email = e.target.email.value;
+    // const image = e.target.image.value;
+    // const password = e.target.password.value;
+    console.log(name, image, email, password);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(result => {
+        console.log(result.user);
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: image,
+        })
+          .then(() => console.log("updated"))
+        .catch()
+      })
+    .catch()
 
 
     // setSignUpError("");
-    // setSuccess("");
+    // signUpSuccess("");
 
     if (password.length < 6) {
-      toast.error("This didn't work.");
+      toast.error("password must be at least 6 characters long!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    }
+    else if (
+      !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/.test(
+        password
+      )
+    ) {
+      toast.error(
+        "password must be one special character and upper case letter!",
+        {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
       return;
     }
+      
+      
+      
+      
+      // if (
+      //   !/^(?![A-Z])(?!.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\/]).{1,5}$/.test(
+      //     password
+      //   )
+      // ) {
+      //   // const [error, setError] = useState("");
 
-
-
-
-    // const [error, setError] = useState("");
-
-    // if(!/^(?![A-Z])(?!.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\/]).{1,5}$/.test(password)) {
-    //   setError("Minimum six character, 1 special and 1 Uppercase Letter");
-    // }
-    // else {
-    //   setError("");
-    //   if (email) {
-    //     createUser(email, password)
-    //       .then(result => {
-    //       console.log(result.user);
-    //     })
-    //   }
-    // }
+      //   setError("Minimum six character, 1 special and 1 Uppercase Letter");
+      // } else {
+      //   setError("");
+      //   if (email) {
+      //     createUser(email, password).then((result) => {
+      //       console.log(result.user);
+      //     });
+      //   }
+      // }
     setSignUpError("");
     setSignUpSuccess("");
 
@@ -54,11 +126,34 @@ const SignUp = () => {
       createUser(email, password)
           .then((result) => {
             console.log(result.user);
-            setSignUpSuccess("Successfully toasted!");
+            setSignUpSuccess(setSignUpSuccess);
+        navigate(location?.state ? location.state : "/");
+            toast.success("Account Created Successfully", {
+              style: {
+                padding: "16px",
+                color: "white",
+                backgroundColor: "rgb(74 222 128)",
+              },
+              iconTheme: {
+                primary: "black",
+                secondary: "#FFFAEE",
+              },
+            });
           })
           .catch(error => {
             console.error(error);
             setSignUpError(error.message);
+            toast.error("Account Already In Use Try Another One!", {
+              style: {
+                padding: "16px",
+                color: "white",
+                backgroundColor: "rgb(239 68 68)",
+              },
+              iconTheme: {
+                primary: "black",
+                secondary: "#FFFAEE",
+              },
+            });
       })
   };
   return (
@@ -74,8 +169,8 @@ const SignUp = () => {
           </div>
           <div className="w-full bg-gradient-to-r from-[#ec6f66] to-[#ff5e62] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-50 md:text-2xl dark:text-white">
-                Create and account
+              <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Create an Account
               </h1>
               <form
                 onSubmit={handleSignUp}
@@ -100,17 +195,33 @@ const SignUp = () => {
                 </div>
                 <div>
                   <label
+                    htmlFor="image URL"
+                    className="block mb-2 text-lg font-medium text-gray-100 dark:text-white"
+                  >
+                    Image URL
+                  </label>
+                  <input
+                    type="img"
+                    name="image"
+                    id="image"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Enter URL"
+                    required="required"
+                  />
+                </div>
+                <div>
+                  <label
                     htmlFor="email"
                     className="block mb-2 text-lg font-medium text-gray-100 dark:text-white"
                   >
-                    Your email
+                    Your Email
                   </label>
                   <input
                     type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-lg rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required="required"
                   />
                 </div>
@@ -120,22 +231,6 @@ const SignUp = () => {
                     className="block mb-2 text-lg font-medium text-gray-100 dark:text-white"
                   >
                     Password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required="required"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block mb-2 text-lg font-medium text-gray-100 dark:text-white"
-                  >
-                    Confirm password
                   </label>
                   <input
                     type="password"
@@ -188,8 +283,24 @@ const SignUp = () => {
                   </Link>
                 </p>
               </form>
-              {signUpError && <p className="text-red-600">{signUpError}</p>}
-              {signUpSuccess && { signUpSuccess }}
+              {/* {signUpError && <p className="text-red-600">{signUpError}</p>}
+              {signUpSuccess && <p className="text-green-600">{signUpSuccess}</p>} */}
+            </div>
+            <div className="space-y-3 md:pl-5 pb-5">
+              <div className="ml-2 md:flex gap-5 items-center">
+                <h2 className="text-xl text-white font-bold text-center">
+                  SignUp With
+                </h2>
+                <button
+                  onClick={handleGoogleSignIn}
+                  className="btn btn-outline btn-info w-32 border-2  border-sky-500"
+                >
+                  <FcGoogle className="text-xl"></FcGoogle>Google
+                </button>
+                <button className="btn btn-outline w-32 border-2">
+                  <FaGithub className="text-xl"></FaGithub>Github
+                </button>
+              </div>
             </div>
           </div>
         </div>
