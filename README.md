@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 
 
 
-#five features and functionalities of your website.
+#five features and functionalities of my website.
 
 - In this website i try to built a university event. where student or teacher or user See some event which is ethical hacking, programming contest eetc.
 - When user enter this website see a navbar, banner, services, and a footer and aos package.
