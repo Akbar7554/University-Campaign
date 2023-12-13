@@ -8,7 +8,9 @@ import MainContent from "../shared/MainContent/MainContent";
 // import LeftSideContent from "../shared/LeftSideContent/LeftSideContent";
 import Navbar from "../shared/Navbar/Navbar";
 import { Toaster } from "react-hot-toast";
+import Animation from "../Animation/Animation";
 // import RightSideContent from "../shared/RightSideContent/RightSideContent";
+
 
 const Home = () => {
   const data = useLoaderData();
@@ -32,6 +34,8 @@ const Home = () => {
             <RightSideContent></RightSideContent>
           </div> */}
       </div>
+
+          <Animation></Animation>
       <Footer></Footer>
           <Toaster />
     </div>
